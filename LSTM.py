@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
 from torch.utils.data import DataLoader, TensorDataset
 import matplotlib.pyplot as plt
 
@@ -107,6 +108,7 @@ epochs = 500
 losses = []
 
 for i in range(epochs):
+    print(f'Let her rip! This will take some minutes')
     for seq, labels in train_loader:
         optimizer.zero_grad()
         y_pred = model(seq)
@@ -122,17 +124,13 @@ for i in range(epochs):
 
     # adjust as needed
     if i % 100 == 0:
-        clear_output(wait=True)
-        plot_losses_with_time(losses, start_time)
-        display(plt.gcf())
-        plt.close()
+        print(f'epoch: {i:3} loss: {single_loss.item():10.8f}')
+    
+    
+plot_losses_with_time(losses, start_time)
         
-# Graph updates every 100 epochs about every 10 seconds on M1 mac
-
 # %%
 # Evaluating model
-
-from sklearn.metrics import mean_squared_error
 
 # check if GPU available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
