@@ -107,8 +107,9 @@ epochs = 500
 # store losses for plotting
 losses = []
 
+print(f'Let her rip! This will take some minutes')
+
 for i in range(epochs):
-    print(f'Let her rip! This will take some minutes')
     for seq, labels in train_loader:
         optimizer.zero_grad()
         y_pred = model(seq)
