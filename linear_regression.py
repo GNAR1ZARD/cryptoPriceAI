@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
 # Name of the cryptocurrency from /past folder
-crypto_name = 'bitcoin'
+crypto_name = 'monero'
 
 ############################################################################################
 # Training Model on past data
@@ -28,8 +28,8 @@ past['month'] = past['date'].dt.month
 
 # Normalize features
 scaler = StandardScaler()
-# features = ['day_of_week', 'month']
-features = ['total_volume', 'market_cap', 'day_of_week', 'month']
+features = ['day_of_week', 'month']
+# features = ['total_volume', 'market_cap', 'day_of_week', 'month']
 past[features] = scaler.fit_transform(past[features])
 
 # Split the pastset
@@ -55,7 +55,7 @@ print('R-squared:', r2_score(y_test, y_pred))
 
 # Generate future dates (2000 days)
 future_dates = [datetime.now() + timedelta(days=x) for x in range(1, 2000)]
-future = pd.DataFrame(future_dates, columns=['date', 'volume', 'cap'])
+future = pd.DataFrame(future_dates, columns=['date'])
 
 # Convert 'date' to datetime and extract 'day_of_week' and 'month'
 future['date'] = pd.to_datetime(future['date'])
@@ -63,7 +63,7 @@ future['day_of_week'] = future['date'].dt.dayofweek
 future['month'] = future['date'].dt.month
 
 # Normalize features
-features_to_scale = ['total_volume', 'market_cap', 'day_of_week', 'month']
+features_to_scale = ['day_of_week', 'month']
 future[features_to_scale] = scaler.transform(future[features_to_scale])
 
 # Predict future prices
