@@ -102,13 +102,14 @@ def plot_losses_with_time(losses, start_time):
     plt.show()
 
 # set this depending on how long you want to be training model
-epochs = 500
+epochs = 1000
 
 # store losses for plotting
 losses = []
 
+print(f'Let her rip! This will take some minutes')
+
 for i in range(epochs):
-    print(f'Let her rip! This will take some minutes')
     for seq, labels in train_loader:
         optimizer.zero_grad()
         y_pred = model(seq)
